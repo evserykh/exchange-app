@@ -22,6 +22,8 @@ services:
     depends_on:
       - postgres
       - redis
+    environment:
+      DISABLE_SPRING: 'true'
     image: ruby:3.0
     volumes:
       - .:/app
