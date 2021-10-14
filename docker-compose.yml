@@ -18,12 +18,28 @@ services:
     volumes:
       - redis:/data
 
-  web:
+  sidekiq:
     depends_on:
       - postgres
       - redis
     environment:
       DISABLE_SPRING: 'true'
+      FIXER_ACCESS_KEY: f7d3df9a5edf3859942bdf99cc126be4
+      SIDEKIQ_REDIS_URL: redis://redis:6379/0
+    image: ruby:3.0
+    volumes:
+      - .:/app
+      - .bundle:/usr/local/bundle
+    working_dir: /app
+    command: bundle exec sidekiq
+
+  web:
+    depends_on:
+      - sidekiq
+    environment:
+      DISABLE_SPRING: 'true'
+      FIXER_ACCESS_KEY: f7d3df9a5edf3859942bdf99cc126be4
+      SIDEKIQ_REDIS_URL: redis://redis:6379/0
     image: ruby:3.0
     volumes:
       - .:/app

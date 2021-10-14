@@ -8,6 +8,8 @@ gem 'jbuilder'
 gem 'pg'
 gem 'puma'
 gem 'rails'
+gem 'sidekiq'
+gem 'sidekiq-cron'
 
 group :development, :test do
   gem 'byebug'
