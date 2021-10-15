@@ -2,6 +2,8 @@ require 'rails_helper'
 
 describe Fixer do
   describe '#latest' do
+    before { allow(ENV).to receive(:[]).with('FIXER_ACCESS_KEY').and_return('access_key') }
+
     context 'when response is success' do
       before do
         stub_request(:get, "http://data.fixer.io/latest?access_key=#{ENV['FIXER_ACCESS_KEY']}").to_return(

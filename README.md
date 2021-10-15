@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/evserykh/exchange-app/tree/master.svg?style=svg&circle-token=53ae9acf04195b7b9675f8e6feafb629f5fe0672)](https://circleci.com/gh/evserykh/exchange-app/tree/master)
+
 # Getting started
 
 1. Clone the project

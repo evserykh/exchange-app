@@ -1,0 +1,32 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: cimg/ruby:3.0
+        environment:
+          TEST_DATABASE_URL: postgresql://rails:rails@localhost/exchange-app_test
+          RAILS_ENV: test
+      - image: postgres:14.0
+        environment:
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: rails
+    steps:
+      - checkout
+
+      - type: cache-restore
+        name: Restore bundle cache
+        key: exchange-app-v1-{{ checksum "Gemfile.lock" }}
+
+      - run: bundle install --path vendor/bundle
+
+      - type: cache-save
+        name: Store bundle cache
+        key: exchange-app-v1-{{ checksum "Gemfile.lock" }}
+        paths:
+          - vendor/bundle
+
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run: bundle exec rake db:create db:migrate
+
+      - run: bundle exec rspec
