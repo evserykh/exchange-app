@@ -1,24 +1,27 @@
-# README
+# Getting started
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+1. Clone the project
 
-Things you may want to cover:
+`git clone https://github.com/evserykh/exchange-app.git && cd exchange-app`
 
-* Ruby version
+2. Install requires gems
 
-* System dependencies
+ `docker-compose run --rm web bundle`
 
-* Configuration
+3. Prepare DB
 
-* Database creation
+`docker-compose run --rm web bundle exec rake db:create db:migrate`
 
-* Database initialization
+4. Run the application
 
-* How to run the test suite
+`docker-compose up`
 
-* Services (job queues, cache servers, search engines, etc.)
+# Tests
 
-* Deployment instructions
+1. Prepare test DB
 
-* ...
+`docker-compose run --rm -e RAILS_ENV=test web bundle exec rake db:create db:migrate`
+
+2. Run tests
+
+`docker-compose run --rm web bundle exec rspec`
