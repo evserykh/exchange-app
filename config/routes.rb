@@ -7,4 +7,5 @@ Sidekiq::Web.use Rails.application.config.session_store, Rails.application.confi
 Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
   resources :projects, only: :create, defaults: { format: 'json' }
+  match '/convert', to: 'convertations#convert', via: %i[get post]
 end
